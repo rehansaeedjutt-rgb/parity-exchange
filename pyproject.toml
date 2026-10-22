@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "parity-exchange"
+version = "0.1.0"
+description = "Unified exchange layer with feature emulation for exchanges that lack native support (OCO, trailing stops, STP)."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Muhammad Rehan Saeed" },
+]
+keywords = ["crypto", "exchange", "binance", "mexc", "bitget", "api", "unified"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+    "aiohttp>=3.14",
+    "pydantic>=2.13",
+    "pydantic-settings>=2.15",
+    "structlog>=26.0",
+    "python-dotenv>=1.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0",
+    "pytest-asyncio>=1.4",
+    "pytest-cov>=7.0",
+    "ruff>=0.16",
+    "mypy>=2.4",
+]
+
+[project.scripts]
+parity = "parity.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/rehansaeedjutt-rgb/parity-exchange"
+Repository = "https://github.com/rehansaeedjutt-rgb/parity-exchange"
+Issues = "https://github.com/rehansaeedjutt-rgb/parity-exchange/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-ra --strict-markers --strict-config"
+
+[tool.coverage.run]
+source = ["src/parity"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
